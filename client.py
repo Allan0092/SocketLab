@@ -4,7 +4,7 @@ import socket
 HEADER=64
 PORT=5050
 FORMAT='utf-8'
-DISCONNECT_MSG="![Disconnected]"
+DISCONNECT_MSG="dc"
 SERVER=socket.gethostbyname(socket.gethostname())
 ADDR=(SERVER,PORT)
 
@@ -18,21 +18,27 @@ def send(msg):
 
     client.send(send_size)
     client.send(send_message)
+    
+    print("[RECEIVING] "+client.recv(2048).decode(FORMAT))
+
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
 
 loop = True
 while loop:
-    user_input=input("Enter the message: ")
-    if user_input=='':
-        break
     try:
-        send(user_input)
-    except ConnectionAbortedError:
-        print("[Disconnected] client disconnect request")
-        break
-        
+        user_input=input("[Sending] message: ")
+        if user_input=='':
+            break
+        try:
+            send(user_input)
+        except ConnectionAbortedError:
+            print("[Disconnected] You Left the Server")
+            break
+    except KeyboardInterrupt:
+        loop=False
+        break    
 
 
 

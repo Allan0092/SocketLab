@@ -13,21 +13,26 @@ ADDR=(SERVER, PORT)
 server=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
-DISCONNECT_MSG="![Disconnected]"
+DISCONNECT_MSG="dc"
 
 def handle_client(conn, addr):
     print(f"[New Connection] from : {addr}")
     connection_active=True
 
     while connection_active:
-        msg_length=conn.recv(HEAD).decode(FORMAT)
-        if msg_length:
-            msg_length=int(msg_length)
-            message = conn.recv(msg_length).decode(FORMAT)
-            if message==DISCONNECT_MSG:
-                connection_active=False
+        try:
+            msg_length=conn.recv(HEAD).decode(FORMAT)
+            if msg_length:
+                msg_length=int(msg_length)
+                message = conn.recv(msg_length).decode(FORMAT)
+                if message==DISCONNECT_MSG:
+                    connection_active=False
 
-            print(f"[{addr}] {message}")
+                print(f"[{addr}] {message}")
+                conn.send("seen".encode(FORMAT))
+        except KeyboardInterrupt:
+            connection_active=False
+            break
     conn.close()
 
 
