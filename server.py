@@ -15,7 +15,7 @@ server.bind(ADDR)
 DISCONNECT_MSG="dc"
 
 def handle_client(conn, addr):
-    print(f"[New Connection] from : {addr}")
+    print(f"[New Connection] from : {addr[0]}")
     connection_active=True
 
     while connection_active:
@@ -26,8 +26,8 @@ def handle_client(conn, addr):
                 message = conn.recv(msg_length).decode(FORMAT)
                 if message==DISCONNECT_MSG:
                     connection_active=False
-
-                print(f"[{addr}] {message}")
+                    print(f"[DISCONNECTED!] {addr} ")
+                print(f"[{addr[0]}] {message}")
                 conn.send("seen".encode(FORMAT))
         except KeyboardInterrupt:
             connection_active=False
