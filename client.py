@@ -5,7 +5,8 @@ HEADER=64
 PORT=5050
 FORMAT='utf-8'
 DISCONNECT_MSG="dc"
-IP=socket.gethostbyname(socket.gethostname())
+# IP=socket.gethostbyname(socket.gethostname())
+IP="192.168.1.103"
 ADDR=(IP,PORT)
 
 print(f"SERVER : {IP}\n")
