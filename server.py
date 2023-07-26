@@ -6,9 +6,8 @@ PORT=5050
 HEAD=64
 FORMAT='utf-8'
 
-
-SERVER=socket.gethostbyname(socket.gethostname())
-ADDR=(SERVER, PORT)
+IP=socket.gethostbyname(socket.gethostname())
+ADDR=(IP, PORT)
 
 server=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
@@ -38,7 +37,7 @@ def handle_client(conn, addr):
 
 def start():
     server.listen()
-    print(f"[Listening] Server {SERVER}")
+    print(f"[Listening] Server {IP}")
     while True:
         conn, addr=server.accept()
 

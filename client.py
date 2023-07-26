@@ -5,10 +5,10 @@ HEADER=64
 PORT=5050
 FORMAT='utf-8'
 DISCONNECT_MSG="dc"
-SERVER=socket.gethostbyname(socket.gethostname())
-ADDR=(SERVER,PORT)
+IP=socket.gethostbyname(socket.gethostname())
+ADDR=(IP,PORT)
 
-print(f"SERVER : {SERVER}\n")
+print(f"SERVER : {IP}\n")
 
 def send(msg):
     send_message=msg.encode(FORMAT)
@@ -36,9 +36,7 @@ while loop:
         except ConnectionAbortedError:
             print("[Disconnected] You Left the Server")
             break
-    except KeyboardInterrupt:
-        loop=False
-        break    
+        
 
 
 
