@@ -27,7 +27,7 @@ client.connect(ADDR)
 
 loop = True
 while loop:
-    try:
+    
         user_input=input("[Sending] message: ")
         if user_input=='':
             break
